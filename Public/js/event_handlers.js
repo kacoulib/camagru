@@ -42,17 +42,15 @@
 		btn.addEventListener('click', function(e)
 		{
 			e.preventDefault();
-			console.log(i)
-			console.log(btn)
-			btn.disabled = true;
 		})
 		
 	})
-	// for (var i = btn.length - 1; i >= 0; i--)
-	// {
 
-			
-	// }
+	// snap click
+	document.getElementById('snap').addEventListener('click', function(e)
+	{
+		this.disabled = true;
+	})
 
 	// Login form btn click
 	tmp = document.querySelectorAll('form .btn');

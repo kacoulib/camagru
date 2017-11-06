@@ -8,29 +8,16 @@
 	$_SESSION = [];
 	if (isset($_POST) && is_set($_POST['action']) && is_string($_POST['action']))
 	{
-		if ($_POST['action'] == 'screenshot' && is_set($_POST['img']))
+		if ($_POST['action'] == 'screenshot' && is_set($_POST['img']) && is_set($_SESSION['user']))
 		{
-			if (is_set($_POST['filter']))	
+			if (is_set($_POST['filter']))
 			{
-				$src = '../Public/img/filters/'.$_POST['filter'].'.png';
-				if (file_exists($src))
-				{
-					$dest = str_replace('data:image/png;base64,', '', $_POST['img']);
-					$dest = str_replace(' ', '+', $dest);
-					$dest = base64_decode($dest);
-					file_put_contents('test.png', $dest);
-					return ;
-					if (!($dest = @imagecreatefromstring($dest)) || !($src = @imagecreatefrompng($src)))
-						exit;
-					imageAlphaBlending($src, true);
-					imageSaveAlpha($src, true);
+				$img = new Image();
 
-					imagecopymerge($dest, $src, 100, 100, 0, 0, 256, 256, 100);
-					
-					imagepng($dest, '../Public/img/gun0.png');
-					imagedestroy($dest);
-					imagedestroy($src);
-				}
+				$src = '../Public/img/filters/'.$_POST['filter'].'.png';
+				$new_img_name = $img->merge_jpeg_and_png($src, $_POST['img']);
+				$img->user_id = $_SESSION['user']['id'];
+				$img->save();
 			}
 		}
 		else
@@ -41,23 +28,18 @@
 				$method = $_POST['action'];
 				if (($method == 'register' || $method == 'confirm_register') && isset($_SESSION['user']))
 					return (true);
-	var_dump($_POST);
+		var_dump($_POST);
 				$user->$method($_POST);
 			}
 		}
 	}
 	// var_dump($_SESSION);
 
-if (isset($data))
-{
-	$json = json_encode($data);
-	echo $json;
-}
-exit;
-
 
 function	is_set($test)
 {
+	if (is_array($test))
+		return (count($test) > 0);
 	return (strlen($test) != 0 && isset($test));
 }
 

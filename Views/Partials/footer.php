@@ -17,7 +17,7 @@
 	</div>
 	<div id="gif_anim"></div>
 
-  	<!-- <script src="Public/js/animate.js"></script> -->
+  	<script src="Public/js/animate.js"></script>
   	<script src="Public/js/functions.js"></script>
   	<script src="Public/js/event_handlers.js"></script>
   	<script src="Public/js/script.js"></script>

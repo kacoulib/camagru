@@ -7,7 +7,7 @@
 	{
 		public	$id;
 		public	$user_id;
-		public	$nb_like = 0;
+		private	$nb_like = 0;
 		public	$name;
 		public	$description;
 		public	$url;
@@ -35,6 +35,7 @@
 			return ([
 				'id'		=> 'numeric',
 				'name'		=> 'required|max:255|min:3',
+				'name'		=> 'max:255',
 				'user_id'	=> 'required|numeric|max:3',
 				'url'		=> 'required'
 			]);
@@ -73,11 +74,43 @@
 					exit;
 				}
 				echo "----";
+
+				/// old
+
+				// if (file_exists($src))
+				// {
+				// 	$dest = str_replace('data:image/png;base64,', '', $_POST['img']);
+				// 	$dest = str_replace(' ', '+', $dest);
+				// 	$dest = base64_decode($dest);
+				// 	file_put_contents('test.png', $dest);
+				// 	return ;
+				// 	if (!($dest = @imagecreatefromstring($dest)) || !($src = @imagecreatefrompng($src)))
+				// 		exit;
+				// 	imageAlphaBlending($src, true);
+				// 	imageSaveAlpha($src, true);
+
+				// 	imagecopymerge($dest, $src, 100, 100, 0, 0, 256, 256, 100);
+					
+				// 	imagepng($dest, '../Public/img/gun0.png');
+				// 	imagedestroy($dest);
+				// 	imagedestroy($src);
+				// }
 				return (true);
 			}
 
 			/* save with the new url */
 			// imagejpeg($dest_ing, $url);
+			return ($new_img_name);
+		}
+
+		public function like($img_id)
+		{
+			if (is_numeric($img_id))
+				return ($this->error('unknow image'));
+
+			$this->nb_like++;
+
+			return ($this);
 		}
 
 		//	[

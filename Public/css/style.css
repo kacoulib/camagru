@@ -243,7 +243,7 @@ header ul li a span
 	height: 100%;
 }
 
-#snap.not_disabled span:before
+#snap.anim span:before
 {
 	content: '';
 	position: absolute;
@@ -255,10 +255,14 @@ header ul li a span
 	border-radius: 100%;
 }
 
-#snap.not_disabled span:before
+#snap.anim span:before
 {
 	animation: sonarWave .5s linear infinite;
 	/*animation-delay: .2s;*/
+}
+#snap.anim:disabled
+{
+	cursor: not-allowed;
 }
 #snap span:after
 {

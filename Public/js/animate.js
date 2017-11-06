@@ -2,6 +2,8 @@
 {
 	let obj = {},
 		i = 0;
+		WW = window.innerWidth;
+
 	window.requestAnimationFrame =	window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                              		window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 	
@@ -76,9 +78,22 @@
 		elem.src = perso.img_url;
 		elem.id = perso.name;
 		elem.className = 'anim_perso';
+		if (perso.style)
+			addStyle(elem, perso.style);
+
 		document.getElementById('gif_anim').appendChild(elem);
 		this.added.push(name);
 		return (this);
+
+		function addStyle(perso, styles)
+		{
+			let key;
+
+			if (!styles)
+				return ;
+			for (key in styles)
+				perso.style[key] = styles[key];
+		}
 	}
 
 	obj.animate = function (name)
@@ -88,7 +103,6 @@
 			pos = 0,
 			start_poz,
 			end_poz,
-			WW = window.innerWidth,
 			direction = 'right',
 			change_direction = false,
 			i,
@@ -108,11 +122,11 @@
 			return ;
 		obj.persos[i].animate_id = request_id;
 		perso = obj.persos[i];
-		WW = window.innerWidth;
 		elem.style.display = 'block';
-		if (perso.style)
-			addStyle(elem, perso.style);
-		else
+		if (obj.persos[i].fly)
+			return (fly())
+		WW = WW;
+		if (!perso.style)
 			elem.style.width = (WW / 15) + 'px';
 		WW = WW - (WW / 15);
 		start_poz = !perso.animation ? 0 : perso.animation.start_poz;
@@ -144,15 +158,6 @@
 			request_id = requestAnimationFrame(frame);
 		}
 
-		function addStyle(perso, styles)
-		{
-			let key;
-
-			if (!styles)
-				return ;
-			for (key in styles)
-				perso.style[key] = styles[key];
-		}
 		function fly()
 		{
 			setTimeout(function()
@@ -165,8 +170,6 @@
 					direction = 'right';
 
 				move();
-				console.log('direction changed', tmp_direction_x, tmp_direction_y)
-
 
 			}, (Math.random() * 1500) + 100)
 
@@ -189,7 +192,6 @@
 			{
 				if (request_id != false)
 					cancelAnimationFrame(request_id);
-				console.log('done')
 				return (fly());
 			}
 
@@ -205,57 +207,70 @@
 	obj.create({'name' : 'bulbizard', 'img_url' : '/camagru/Public/img/bulbizard.gif'});
 	obj.create({'name' : 'carapuce', 'img_url' : '/camagru/Public/img/carapuce.gif'});
 	obj.create({'name' : 'fantominus', 'img_url' : '/camagru/Public/img/fantominus.gif'});
-	// obj.create({'name' : 'fantominus', 'img_url' : '/camagru/Public/img/fantominus.gif'});
 	obj.create({
 		'name' : 'sulfura',
 		'img_url'		: '/camagru/Public/img/sulfura.gif',
 		'style'			:
 		{
 			'width' 	: 'auto',
-			'height'	: 'auto'
+			'height'	: 'auto',
+			'left'		: Math.floor(Math.random() * (WW + 100) + (WW + 50)) + 'px',
+			'bottom'	: Math.floor(Math.random() * (WW + 100) + (WW + 50)) + 'px'
+
 		},
 		'speed' 		: 2,
 		'fly'			: true,
 		'animation' 			: 
 		{
-			'start_poz'	: window.innerWidth - 350,
-			'end_poz'	: window.innerWidth - 200
+			'start_poz'	: WW - 350,
+			'end_poz'	: WW - 200
 		}
 	});
-	obj.append(['salameche', 'sulfura']);
-	// obj.append(['salameche', 'bulbizard', 'carapuce', 'fantominus', 'dragonfee']);
+	obj.append(['salameche', 'bulbizard', 'carapuce', 'sulfura', 'fantominus']);
 
 	obj.persos.forEach((el) =>
 	{
 		Math.floor((Math.random() * 100) + 1);
 	})
 
-	obj.animate(obj.persos[i].name);
-	i++;
+	var arr = [],
+		len = obj.persos.length;
+	if (!(len - 1))
+		return;
+	i = 0;
+	for (i = 0; i < len; i++)
+	   arr.push(i);
+	arr = shuffle(arr);
 	(function animAll()
 	{
 		setTimeout(function ()
 		{
-			if (obj.persos[i])
+			if (obj.persos[arr[0]].name)
 			{
-				obj.animate(obj.persos[i].name);
-				i++;
-				animAll();
+				obj.animate(obj.persos[arr[0]].name);
+				arr.shift();
+				if (arr.length > 0)
+					animAll();
 			}
-			
-		}, Math.floor((Math.random() * 1500) + 100))
+
+		}, Math.floor((Math.random() * 1500) + 1000))
 	})()
 
+	function shuffle(array)
+	{
+		var j = array.length, tmp, random;
 
-	// obj.animate('salameche');
-	// setTimeout(function ()
-	// {
-	// 	obj.animate('bulbizard');
-	// 	setTimeout(function ()
-	// 	{
-	// 		obj.animate('fantominus');
-	// 		obj.animate('carapuce');
-	// 	}, Math.floor((Math.random() * 15000) + 1000))
-	// }, Math.floor((Math.random() * 15000) + 1000))
+		while (0 !== j)
+		{
+
+			random = Math.floor(Math.random() * j);
+			j -= 1;
+
+			tmp = array[j];
+			array[j] = array[random];
+			array[random] = tmp;
+		}
+		return array;
+	}
 		
 })()

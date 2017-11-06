@@ -1,39 +1,54 @@
+
+
 function ajax(data, fn)
 {
 	let xhr = new XMLHttpRequest(),
-	txt = '',
 	tmp,
+	that = this,
+	outpout = false,
 	i;
 
-	if (!data || !data['method'] || !data['url'] || !data['data'])
-	 	return ;
-	xhr.open(data['method'], data['url'], true);
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.onload = function ()
+	this.get = function ($url)
 	{
-		if (xhr.status == 200)
+
+	}
+
+	this.post = function (url, data, fn)
+	{
+		let txt = '';
+
+		xhr.open('POST', url, true);
+		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		if (Object.prototype.toString.call(data))
+		{
+			i = Object.keys(data).length;
+			for (tmp in data)
+			{
+				if (data.hasOwnProperty(tmp))
+				{
+					txt += tmp + '=' + data[tmp];
+					if (--i > 0)
+						txt += '&';
+				}
+			}
+		}
+		else
+			txt = data;
+		xhr.send(txt);
+		get_response(fn)
+		return (this);
+	}
+
+	function get_response(fn)
+	{
+		xhr.onload = function ()
 		{
 			if (!fn || !({}.toString.call(fn) === '[object Function]'))
 				return ;
-			fn(xhr.responseText);
+			tmp = xhr.status;
+			fn(xhr.responseText, tmp);
 		}
-		else
-			console.log("Connection error. Status: " + xhr.status);
+		return (that);
 	}
-	if (Object.prototype.toString.call(data['data']))
-	{
-		i = Object.keys(data['data']).length;
-		for (tmp in data['data'])
-		{
-			if (data['data'].hasOwnProperty(tmp))
-			{
-				txt += tmp + '=' + data['data'][tmp];
-				if (--i > 0)
-					txt += '&';
-			}
-		}
-	}
-	else
-		txt = data['data'];
-	xhr.send(txt);
 }
+var $ = new ajax();

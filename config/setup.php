@@ -13,7 +13,7 @@
       $sql = "CREATE TABLE IF NOT EXISTS Users (
         id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         login VARCHAR(30) NOT NULL,
-        email VARCHAR(30) NOT NULL UNIQUE,
+        email VARCHAR(250) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
         is_confirm tinyint(1) NOT NULL DEFAULT 0,
         confirm_id VARCHAR(255) NOT NULL,

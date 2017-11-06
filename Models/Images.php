@@ -1,6 +1,5 @@
 <?php
 
-	require_once('./index.php');
 	require_once('TraitValidator.php');
 	require_once('TraitDbQuery.php');
 
@@ -13,10 +12,6 @@
 		public	$description;
 		public	$url;
 
-		private	$output = false;
-
-		private $db;
-		
 		use Validator;
 		use DbQuery;
 
@@ -35,7 +30,7 @@
 			return ($this);
 		}
 
-		public function rules()
+		private function rules()
 		{
 			return ([
 				'id'		=> 'numeric',

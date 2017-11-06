@@ -9,15 +9,50 @@
 		tmp2,
 		img;
 
-	// Btn click
-	tmp = document.getElementsByClassName('btn');
-	for (var i = tmp.length - 1; i >= 0; i--)
+
+	// init
+	tmp = location.search;
+	if (tmp && tmp.indexOf('confirm_id'))
 	{
-		tmp[i].addEventListener('click', function(e)
+		tmp.split('&').forEach((data) =>
 		{
-			e.preventDefault();
+			data = data.split('=');
+			if (data[0] == 'confirm_id' && data[1].length > 0)
+			{
+				data =
+				{
+					'confirm_id' : data[1],
+					'action' : 'confirm_register'
+				};
+
+				$.post('/camagru/Controllers/index.php', data, function (el, type)
+				{
+					console.log(type)
+					// if (type == 200)
+						console.log(el)
+				});
+			}
 		})
 	}
+
+
+	// Btn click
+	document.querySelectorAll('.btn').forEach( function(btn)
+	{
+		btn.addEventListener('click', function(e)
+		{
+			e.preventDefault();
+			console.log(i)
+			console.log(btn)
+			btn.disabled = true;
+		})
+		
+	})
+	// for (var i = btn.length - 1; i >= 0; i--)
+	// {
+
+			
+	// }
 
 	// Login form btn click
 	tmp = document.querySelectorAll('form .btn');
@@ -41,20 +76,17 @@
 			}
 			data =
 			{
-				'url' : '/camagru/Controllers/index.php',
-				'method' : 'POST',
-				'data' :
-				{
-					'login' : login,
-					'password' : password,
-					'email' : email,
-					'action' : action
-				}
+				'login' : login,
+				'password' : password,
+				'email' : email,
+				'action' : action
 			};
-			ajax(data, function (el)
+
+			$.post('/camagru/Controllers/index.php', data, function (el, type)
 			{
-				console.log(el)
-			})
+				// if (type == 200)
+					console.log(el)
+			});
 		})
 	}
 
@@ -80,15 +112,15 @@
 		context.drawImage(video, 0, 0, 640, 480);
 		txt = canvas.toDataURL("image/png") || null;
 
-		console.log(txt)
-		return ;
+		// console.log(txt)
+		// return ;
+		choice = 1;
 		if (checked && choice && txt)
 		{
-			ajax({
-				'url' : '/camagru/Controllers/index.php',
-				'method' : 'POST',
-				'data' : {'img' : txt, 'filter' : choice}
-			},
+			$.post('/camagru/Controllers/index.php', 
+				{
+					'img' : txt, 'filter' : choice
+				},
 			function (el)
 			{
 
@@ -104,6 +136,7 @@
 				}
 				else
 					tmp = img.src;
+				console.log('ok')
 				img.src = tmp;
 			})
 		}

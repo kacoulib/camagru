@@ -2,7 +2,6 @@
 
 	trait Validator
 	{
-
 		private function is_validate($key, $rules)
 		{
 			$err = '';
@@ -26,8 +25,12 @@
 						if (!$rule[0])
 							continue;
 						if (!in_array($rule[0], $this->rule_lists))
+						{
+							var_dump($rule[0]);
+							var_dump($this->rule_lists);
 							if (in_array('required', $rules))
 								$err =  "error unknow rule ".$rule[0]."<br>";
+						}
 						if (!$err && in_array($rule[0], ['max', 'min']) && !$this->is_set($rule[1]))
 							if (in_array('required', $rules))
 								$err =  "error unknow rule value<br>";
@@ -40,8 +43,12 @@
 							if (in_array('required', $rules))
 								$err =  $key." is not in the good size <br>";
 							if (!$err && $rule[0] == 'hash')
-								$this->hash($key, $value);
-						
+								$this->$key = $this->hash($value);
+							if (!$err && $rule[0] == 'email')
+								if (!filter_var($value, FILTER_VALIDATE_EMAIL))
+								$err =  $value." is not an email <br>";
+								;
+
 						if ($err)
 							break;						
 					}
@@ -73,15 +80,12 @@
 			if (is_numeric($data))
 				$this->$key = intval($data);
 			else if (is_string($data))
-				$this->$key = htmlentities($data);
+				$this->$key = trim(htmlentities($data));
 			return (true);
 		}
 
-		private function hash($key, $data)
+		public function hash($key)
 		{
-			if (empty($data))
-				return (false);
-			$this->$key = hash("whirlpool", "-,+*)('&%$#\"".$data."0987654321asTuVwXyZ");
-			return (true);
+			return (hash("whirlpool", "-,+*)('&%$#\"".$data."0987654321asTuVwXyZ"));
 		}
 	}

@@ -1,5 +1,5 @@
 <header>
-  <a href="index.php" action='get'><div class="logo"><img src="img/logo2.png" alt"logo" title="logo site"> <p>rocket<span>market</span></p></div></a>
+  <a href="index.php" action='get'><div class="logo"><img src="img/logo2.png" alt"logo" title="logo site"> <p><span>Camagru</span></p></div></a>
   <div>
     <ul>
       <a href="products.php" action='get'><li>PRODUCTS</li></a>

@@ -49,6 +49,5 @@
   <body>
     <?php include('views/_header.php'); ?>
     <?php include($childView); ?>
-    <?php include('views/_footer.php'); ?>
   </body>
 </html>

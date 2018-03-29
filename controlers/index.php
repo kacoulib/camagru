@@ -5,4 +5,4 @@
 		return (strlen($test) != 0 && isset($test));
 	}
 
-	require_once("models/index.php");
+	//require_once(dirname(__FILE__) . "/../models/index.php");

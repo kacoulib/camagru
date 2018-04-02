@@ -201,15 +201,16 @@
 			requestAnimationFrame(move);
 		}
 	}
+	let imgPath = window.location.origin + window.location.pathname + 'Public/img';
 
 	obj.init();
-	obj.create({'name' : 'salameche', 'img_url' : '/Public/img/salameche.gif'});
-	obj.create({'name' : 'bulbizard', 'img_url' : '/Public/img/bulbizard.gif'});
-	obj.create({'name' : 'carapuce', 'img_url' : '/Public/img/carapuce.gif'});
-	obj.create({'name' : 'fantominus', 'img_url' : '/Public/img/fantominus.gif'});
+	obj.create({'name' : 'salameche', 'img_url' : imgPath+'/salameche.gif'});
+	obj.create({'name' : 'bulbizard', 'img_url' : imgPath+'/bulbizard.gif'});
+	obj.create({'name' : 'carapuce', 'img_url' : imgPath+'/carapuce.gif'});
+	obj.create({'name' : 'fantominus', 'img_url' : imgPath+'/fantominus.gif'});
 	obj.create({
 		'name' : 'sulfura',
-		'img_url'		: '/Public/img/sulfura.gif',
+		'img_url'		: imgPath+'/sulfura.gif',
 		'style'			:
 		{
 			'width' 	: 'auto',

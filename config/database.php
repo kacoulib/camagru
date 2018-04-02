@@ -1,6 +1,7 @@
 <?php
 
-	$DB_DSN = '127.0.0.1';
+	$DB_DSN = 'localhost';
 	$DB_USER = 'root';
-	$DB_PASSWORD = '';
+	$DB_PASSWORD = 'test123';
 	$DB_NAME = 'camagru';
+	$DB_PORT = '3306';

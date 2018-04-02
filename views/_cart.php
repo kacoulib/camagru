@@ -37,20 +37,27 @@
 		}
 	?>
 	<div class="validate-cart">
-		<br/>
+
 		<?php if ($_SESSION['logged_on_user']): ?>
-			<?php if ($_SESSION['card']): ?>
 				<form action="card_crud.php" method="POST">
-					<input type="hidden" name="action" data-action="action_0" value="validate">
+					<label for="login">Login</label>
+					<input type="text" name="login" id="login" value=<?php echo $user['login']?> autofocus/>
+					<br>
+
+					<label for="password">Password</label>
+					<input type="password" name="password" id="password" />
+					<br>
+
+					<label for="email">Email</label>
+					<input type="email" name="email" id="email" value=<?php echo $user['email']?> />
+					<br>
+
+					<label for="send_notif">Notification</label>
+					<input type="checkbox" name="send_notif" id="send_notif" <?php echo $user['send_notif'] == '1' ? 'checked' : ''?> />
+					<br>
+					<input type=hidden name="action" value='update_user' />
 					<button class="btn" data-action="action_0">VALIDATE CART</button>
 				</form>
-			<?php endif; ?>
-		<?php endif; ?>
-		<?php if (!$_SESSION['logged_on_user']): ?>
-			<p>You must be connected to validate your cart</p>
-		<?php endif; ?>
-		<?php if (!$_SESSION['card']): ?>
-			<a href="products.php" action='get'><p class="btn">PRODUCTS</p></a>
 		<?php endif; ?>
 	</div>
 </div>

@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	
-	$_SESSION['logged_on_user'] = '';
-	$_SESSION['card'] = ''; // to remote
+	$_SESSION = [];
+	session_destroy();
+
 	header("Location: index.php");

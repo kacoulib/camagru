@@ -60,7 +60,7 @@ header ul li{
 }
 
 header ul li:hover{
-  background: #22313f;
+  background: #607D8B;
   color: white;
   cursor: pointer;
 }
@@ -147,6 +147,11 @@ header ul li img{
 .product img{
   width: 18em;
   height: 18em;
+}
+
+.validate-cart
+{
+  margin-top: 4rem;
 }
 
 .btn-cntnr div{
@@ -376,7 +381,7 @@ footer div p{
   padding: 2em;
   margin: auto;
   margin-top: 12em;
-  margin-bottom: 35em;
+  margin-bottom: 5em;
   -webkit-box-shadow: 0px 3px 4px 0px rgb(213,213,213);
   -moz-box-shadow: 0px 3px 4px 0px rgb(213,213,213);
   box-shadow: 0px 3px 4px 0px rgb(213,213,213);
@@ -540,4 +545,80 @@ footer div p{
   bottom: 0;
   left: 0;
   transform: rotateY(180deg);
+}
+.msg
+{
+  display: inline-block;
+  position: fixed;
+  top: 0;
+  left: 50vw;
+  transform: translate(-50%);
+  background: green;
+  padding: 2vw;
+  color: white;
+  font-weight: bold;
+}
+.error
+{
+  background: red;
+}
+
+.msg
+{
+  -webkit-animation: seconds 1.0s forwards;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 3s;
+  animation: seconds 1.0s forwards;
+  animation-iteration-count: 1;
+  animation-delay: 3s;
+  position: relative;
+}
+
+#snap
+{
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: fixed;
+  bottom: 0;
+}
+video
+{
+  width: 100%;
+
+}
+canvas
+{
+  display: none;
+}
+.hide
+{
+  display: none;
+}
+.choice
+{
+  cursor: pointer;
+}
+.selected
+{
+  box-shadow: 0px 3px 17px 2px rgb(146, 143, 143) !important;
+}
+
+@-webkit-keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px;
+  }
+}
+@keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    left: -9999px;
+  }
 }

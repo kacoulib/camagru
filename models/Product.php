@@ -1,5 +1,7 @@
 <?php
-	session_start();
+
+	if (!isset($_SESSION))
+		session_start();
 
 	// create
 	function create_product(array $data)
@@ -8,26 +10,28 @@
 			return (FALSE);
 		if (!($db = get_connection()))
 			return (FALSE);
-		$name	= htmlentities($data['category_name']);
-		$category_id	= intval(htmlentities($data['category_id']));
-		$description	= htmlentities($data['description']);
-		$price	= htmlentities($data['price']);
-		$image = "img/default.png";
-		$category_id = (!$category_id || $category_id == 0) ? 1 : $category_id;
-		$sql = "INSERT INTO Product (category_name, category_id, image, description, price) VALUES ('$name', '$category_id', '$image', '$description', '$price')";
-		if (mysqli_query($db, $sql))
-		{
-			$all = get_all_products();
-			foreach ($all as $key => $value)
-				;
-			$product_id = intval($value['id']);
-			$sql = "INSERT INTO ProductCategory (product_id, category_id) VALUES ('$product_id', '$category_id')";
-			if (mysqli_query($db, $sql))
-				return (TRUE);
-		}
-		return (FALSE);
+
+
+		$sql = $db->prepare("INSERT INTO Images (user_id, nb_like, url) VALUES (:user_id, :nb_like, :url)");
+		$sql->bindParam(':user_id', $data['user_id']);
+		$sql->bindParam(':nb_like', 0);
+		$sql->bindParam(':url', $data['url']);
+		$sql->execute();
+
+		$_SESSION['message'] = 'Image created';
+		return (true);
 	}
 
+	function store_base_64($img, $path = 'Public/img/img00.png')
+	{
+		$t = imagecreatefrompng($img);
+		imagealphablending($t, true);
+		imagesavealpha($t, true);
+
+		// $path = 'images/image.png';
+		imagepng($t, $path);
+		imagedestroy($t);
+	}
 	// read
 	function get_all_products_order_by($order)
 	{

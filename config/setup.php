@@ -2,7 +2,7 @@
   require_once(dirname(__FILE__) . '/database.php');
   try
     {
-      $db = new PDO("mysql:host=$DB_DSN;port=$DB_PORT", $DB_USER, $DB_PASSWORD);
+      $db = new PDO("mysql:host=127.0.0.1;port=$DB_PORT", $DB_USER, $DB_PASSWORD);
 
       $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

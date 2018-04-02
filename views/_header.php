@@ -19,8 +19,8 @@
     </ul>
   </div>
 </header>
+
 <?php
-var_dump($_SESSION);
   if (isset($_SESSION['error']))
   {
     echo '<div class="msg error">'.$_SESSION['error'].'</div>';

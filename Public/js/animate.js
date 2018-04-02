@@ -201,7 +201,10 @@
 			requestAnimationFrame(move);
 		}
 	}
-	let imgPath = window.location.origin + window.location.pathname + 'Public/img';
+	let imgPath = window.location.origin + window.location.pathname,
+		tmp = imgPath.split('index.php');
+
+	imgPath = tmp[0] + 'Public/img';
 
 	obj.init();
 	obj.create({'name' : 'salameche', 'img_url' : imgPath+'/salameche.gif'});

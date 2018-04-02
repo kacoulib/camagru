@@ -13,7 +13,17 @@
 		global $DB_NAME;
 		global $DB_PORT;
 
-		$db = new PDO("mysql:host=$DB_DSN;dbname=$DB_NAME;port=$DB_PORT;", $DB_USER, $DB_PASSWORD);
-		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		return ($db);
+		try {
+			
+			$db = new PDO("mysql:host=$DB_DSN;dbname=$DB_NAME;port=$DB_PORT;", $DB_USER, $DB_PASSWORD);
+			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			return ($db);
+		}
+		catch (Exception $e)
+		{
+			$_SESSION['error'] = 'Database connection error';
+
+			header("Location: /camagru/index.php");
+			exit();
+		}
 	}

@@ -1,8 +1,8 @@
-<?php 
-	
-	// require_once('Controllers/index.php');
-	// $connect = new Connect();
+<?php
+    session_start();
 
-	require_once('Views/Partials/header.php');
-	require_once('Views/home.php');
-	require_once('Views/Partials/footer.php');
+    if (empty($_SESSION['username'])) {
+        require_once('./connection.php');
+    } else {
+        require_once('./webcam.php');
+    }

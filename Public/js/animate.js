@@ -6,7 +6,7 @@
 
 	window.requestAnimationFrame =	window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                              		window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-	
+
 	obj.init = function ()
 	{
 		this.persos = [];
@@ -65,7 +65,7 @@
 			perso,
 			that;
 
-		if (Array.isArray(name) && (that = this)) 
+		if (Array.isArray(name) && (that = this))
 			name.forEach((el) => that.append(el));
 		if (this.added.indexOf(name) > -1)
 			return ;
@@ -73,7 +73,7 @@
 			return ;
 		if (!perso.img_url)
 			return ;
-		
+
 		elem = document.createElement('img');
 		elem.src = perso.img_url;
 		elem.id = perso.name;
@@ -110,7 +110,7 @@
 			direction_y = ((Math.random() * WW) + 50) - 100,
 			tmp_direction_x,
 			tmp_direction_y,
-			x = direction_x, 
+			x = direction_x,
 			y,
 			request_id = false;
 
@@ -201,15 +201,18 @@
 			requestAnimationFrame(move);
 		}
 	}
+	let imgPath = window.location.host;
+
+	imgPath = '/Public/img';
 
 	obj.init();
-	obj.create({'name' : 'salameche', 'img_url' : '/camagru/Public/img/salameche.gif'});
-	obj.create({'name' : 'bulbizard', 'img_url' : '/camagru/Public/img/bulbizard.gif'});
-	obj.create({'name' : 'carapuce', 'img_url' : '/camagru/Public/img/carapuce.gif'});
-	obj.create({'name' : 'fantominus', 'img_url' : '/camagru/Public/img/fantominus.gif'});
+	obj.create({'name' : 'salameche', 'img_url' : imgPath+'/salameche.gif'});
+	obj.create({'name' : 'bulbizard', 'img_url' : imgPath+'/bulbizard.gif'});
+	obj.create({'name' : 'carapuce', 'img_url' : imgPath+'/carapuce.gif'});
+	obj.create({'name' : 'fantominus', 'img_url' : imgPath+'/fantominus.gif'});
 	obj.create({
 		'name' : 'sulfura',
-		'img_url'		: '/camagru/Public/img/sulfura.gif',
+		'img_url'		: imgPath+'/sulfura.gif',
 		'style'			:
 		{
 			'width' 	: 'auto',
@@ -220,7 +223,7 @@
 		},
 		'speed' 		: 2,
 		'fly'			: true,
-		'animation' 			: 
+		'animation' 			:
 		{
 			'start_poz'	: WW - 350,
 			'end_poz'	: WW - 200
@@ -272,5 +275,5 @@
 		}
 		return array;
 	}
-		
+
 })()

@@ -6,7 +6,6 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +39,6 @@ if (!isset($_SESSION['username'])) {
                                 echo '<a class="linker-del" href="./delete_p.php?id=' . $artID . '&userID=' . $p['UserID'] . '&src='. $p['SrcPath'].'" style="text-decoration: none"><i class="fa fa-trash"></i> Delete photo</a>';
                             }
                         } else {
-//                            echo '<p>No photo</p>';
                             header('Location: gallery.php');
                             exit();
                         }
@@ -56,7 +54,6 @@ if (!isset($_SESSION['username'])) {
                 <input type="submit" name="submit" value="Send" />
             </form>
             <?php
-//                $currentUserId = $picture->getUserIdByName(htmlspecialchars($_SESSION['username']));
 
                 if ($_SESSION['username']) {
                     if (isset($_POST['submit'])) {
@@ -69,7 +66,9 @@ if (!isset($_SESSION['username'])) {
                                 echo $error = "Max 140 characters !<br>";
                             } else {
                               if (isset($comment) && !empty($comment))
+                              {
                                 $picture->addCom($artID, $by['ID'], $comment);
+                              }
                             }
                         }
                     }

@@ -7,8 +7,9 @@ Class DBmodel {
     private $dbname;
     private $pdo;
 
-    public function __construct() {
-        $this->pdo = new PDO('mysql:host=127.0.0.1', $GLOBALS['USERNAME'], $GLOBALS['PASSWORD']);
+    public function __construct()
+    {
+        $this->pdo = new PDO( $GLOBALS['DSN'], $GLOBALS['USERNAME'], $GLOBALS['PASSWORD']);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 

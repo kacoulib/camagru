@@ -217,20 +217,24 @@ class PICmodel extends DBmodel {
         }
     }
 
-    public function addCom($artID, $userID, $com) {
+    public function addCom($artID, $userID, $com)
+    {
         $pdo = parent::getValue();
         $com = utf8_encode($com);
         $sendmail = $pdo->prepare("SELECT `Username`,`Email`,`Smail` FROM camagru.t_users INNER JOIN camagru.t_img ON camagru.t_users.ID = camagru.t_img.UserID WHERE camagru.t_img.ArticleID = ?");
-        if ($sendmail->execute(array($artID)) && $row = $sendmail->fetch()) {
-            if ($row['Smail']) {
-                $subject = "Camagru : ". $row['Username']  . " commented on your publication !";
-                $header = "From: noreply@camagru.com";
-                $msg = $row['Username'].' wrote to your picture : '. $com;
-                mail($row['Email'], $subject, $msg, $header);
-            }
-            $sql = $pdo->prepare("INSERT INTO camagru.t_com (ArticleID, UserID, Com, Date) VALUES (:artID, :userID, :com , NOW())");
-            $sql->execute(array(':artID'=>$artID, ':userID'=>$userID, ':com'=>$com));
+
+        $sendmail->execute(array($artID));
+        $row = $sendmail->fetch();
+
+        if ($row)
+        {
+            $subject = "Camagru : ". $row['Username']  . " commented on your publication !";
+            $header = "From: kacoulib@gmail.com";
+            $msg = $row['Username'].' wrote to your picture : '. $com;
+            mail($row['Email'], $subject, $msg, $header);
         }
+        $sql = $pdo->prepare("INSERT INTO camagru.t_com (ArticleID, UserID, Com, Date) VALUES (:artID, :userID, :com , NOW())");
+        $sql->execute(array(':artID'=>$artID, ':userID'=>$userID, ':com'=>$com));
     }
 
     public function delCom($cuserID, $userID, $comID) {
@@ -250,8 +254,6 @@ class PICmodel extends DBmodel {
         $pdo = parent::getValue();
 
         if ($cuserID == $userID) {
-//            $deleteAll = $pdo->prepare("DELETE t1,t2,t3 FROM `t_img` as t1 JOIN `t_like` as t2 ON t2.ArticleID = t1.ArticleID JOIN `t_com` as t3 ON t3.ArticleID = t1.ArticleID WHERE t1.ArticleID = ? AND t2.ArticleID = ? AND t3.ArticleID = ?");
-//            $deleteAll->execute(array($artID, $artID, $artID));
 
             $sql_img = $pdo->prepare("DELETE FROM camagru.t_img WHERE `ArticleID`= ?");
             $sql_like = $pdo->prepare("DELETE FROM camagru.t_like WHERE `ArticleID`= ?");

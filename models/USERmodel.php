@@ -91,14 +91,15 @@ class USERmodel extends DBmodel {
         $header = "From: Noreply <kacoulib@gmail.fr>";
         $msg = 'Welcome on Camagru,
 
-		To activate your account,
-		click on the link below or copy/paste into your internet browser.
+        To activate your account,
+        click on the link below or copy/paste into your internet browser.
 
-		http://localhost:8080/activation.php?log='.urlencode($this->login).'&tok='.urlencode($this->token).'
+        http://localhost:8080/activation.php?log='.urlencode($this->login).'&tok='.urlencode($this->token).'
 
-		This is an automatic-mail, please don\'t reply it.';
+        This is an automatic-mail, please don\'t reply it.';
+
         if (mail($this->email, $subject, $msg, $header)) {
-            echo "Mail of activation sent !";
+            echo "Mail of activation sent to : <i>".$this->email."</i>";
         }
     }
 
@@ -128,6 +129,7 @@ class USERmodel extends DBmodel {
                 echo "Error ! Your account may not be activated ...";
             }
         }
+        echo  " <a href='/index.php'>Home</a>";
     }
 
     /**

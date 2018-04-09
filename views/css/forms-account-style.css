@@ -18,11 +18,20 @@ ul {
 
 /*  Header  */
 header {
-    background: #353637;
+    background: #255856;
     color: #ffffff;
     padding-top: 30px;
     min-height: 70px;
     border-bottom: #32a0c2 3px solid;
+}
+.anim_perso
+{
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    transform: rotateY(180deg);
+    z-index: 1;
 }
 
 header a {
